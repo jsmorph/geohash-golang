@@ -56,9 +56,9 @@ type Direction int
 
 const (
 	North Direction = iota
-	East Direction = iota
+	East  Direction = iota
 	South Direction = iota
-	West Direction = iota
+	West  Direction = iota
 )
 
 // Calculates adjacent geohashes.
