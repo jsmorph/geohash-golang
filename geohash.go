@@ -63,10 +63,12 @@ const (
 
 // Calculates adjacent geohashes.
 func CalculateAdjacent(s string, dir Direction) string {
+	n := len(s)
 	s = strings.ToLower(s)
 	lastChr := s[(len(s) - 1):]
-	oddEven := (len(s) % 2) // 0=even; 1=odd;
-	base := s[0:]
+	oddEven := (n % 2) // 0=even; 1=odd;
+	// Bug fix From github.com/DeanThompson/geohash-golang
+	base := s[:(n - 1)]
 	if strings.Index(borders[dir][oddEven], lastChr) != -1 {
 		base = CalculateAdjacent(base, dir)
 	}
