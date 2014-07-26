@@ -52,27 +52,25 @@ var (
 	}
 )
 
+type Direction int
+
+const (
+	North = iota
+	East
+	South
+	West
+)
+
 // Calculates adjacent geohashes.
-func CalculateAdjacent(s, dir string) string {
+func CalculateAdjacent(s string, dir Direction) string {
 	s = strings.ToLower(s)
 	lastChr := s[(len(s) - 1):]
 	oddEven := (len(s) % 2) // 0=even; 1=odd;
-	var dirInt int
-	switch dir {
-	default:
-		dirInt = 0
-	case "right":
-		dirInt = 1
-	case "bottom":
-		dirInt = 2
-	case "left":
-		dirInt = 3
-	}
 	base := s[0:]
-	if strings.Index(borders[dirInt][oddEven], lastChr) != -1 {
+	if strings.Index(borders[dir][oddEven], lastChr) != -1 {
 		base = CalculateAdjacent(base, dir)
 	}
-	return base + string(base32[strings.Index(neighbors[dirInt][oddEven], lastChr)])
+	return base + string(base32[strings.Index(neighbors[dir][oddEven], lastChr)])
 }
 
 // Struct for passing Box.
